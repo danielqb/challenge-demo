@@ -1,5 +1,9 @@
 const dbConfig = require("../config/db.config.js");
 
+// create db if it doesn't already exist
+const connection = await mysql.createConnection({ dbConfig.HOST, 3306, dbConfig.USER, dbConfig.PASSWORD });
+await connection.query(`CREATE DATABASE IF NOT EXISTS \`${dbConfig.DB}\`;`);
+
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
